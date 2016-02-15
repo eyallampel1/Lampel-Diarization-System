@@ -1,0 +1,96 @@
+# 
+# 
+# Input parameters for Sdais
+#
+# 
+
+# Global variables
+Verbose, N, 1,
+
+# Voice activity detection
+NonspType, S, energy,           # energy, vadsohn
+NonspWinLen, N, 0.1,
+NonspThresh, N, 0.01,
+VadCollar, N, 0.1,
+
+# Overlapped speech detection
+OvspType, S, none,           # none, entropy
+OvspWinLen, N, 0.1,
+OvspThresh, N, -Inf,
+
+# Pre-processing
+PreProcType, S, preemph,        # preemph
+
+# Feature Extraction
+FeatType, S, mfcc,              # mfcc
+FeatAnaOrd, N, 12,
+FeatEnergy, N, 1, 
+FeatDel,N, 1,
+FeatDelDel, N, 0,
+FeatWinLen, N, 0.02,
+FeatWinInc, N, 0.01,
+
+# Feature normalization
+FeatNormType, S, cmsvar,           # none, cms, cmsvar, warp
+
+# Modeling
+Mod, S, gmmubm,                  # somubm, gmmubm, kmubm
+SomLen, N, 32,
+SomWid, N, 16,
+SomMaxIter, N, 5,
+SomDimRed, N, 20,
+GmmOrder, N, 512,
+GmmTrain, S, diag,               # full, diag, map
+GmmInit, S, kmeans,              # random, kmeans
+GmmMaxIter, N, 50,
+
+#------------------ UBM parameters --------------------------------------#
+
+# UBM model
+UBM, S, GMM_UBM_SP.mat,
+UBMType, S, speech,  # speech, nonspeech, total
+
+# GMMUBM adaptation parameters
+UBMR, N, 16,         # GMM-MAP relevance factor
+
+# SOMUBM adaptation parameters
+UBMSI, N, 1,        # SOM number of iterations factor
+UBMSN, N, 0.05,        # SOM initial neighborhood factor
+
+# KMUBM adaptation parameters
+UBMKI, N, 3,        # KMeans number of adaptation iterations
+
+# Directories, Instructions
+UBMVDir, S, /DBMP/AudioDB/SIS_Data/UBM/Segmentations,
+
+#------------------ NAP parameters --------------------------------------#
+
+# NAP model
+NAP, S, GMM_NAP_200.mat,
+
+# Directories, Instructions
+NAPVDir, S, /DBMP/AudioDB/SIS_Data/NAP/Segmentations/,
+
+#------------------ Background model parameters -------------------------#
+
+# BG model
+BG, S, GMM_BG.mat,
+
+# Directories, Instructions
+BGVDir, S, /DBMP/AudioDB/SIS_Data/BG/Segmentations/,
+
+#------------------ SVM train classiffier parameters -------------------#
+
+# SVM
+SVMNumConv, N, 2,
+
+# Directories, Instructions
+SVMVDir, S, /DBMP/AudioDB/SIS_Data/Train/AutoSegmentations/,
+
+#------------------ SVM train test set parameters ----------------------#
+
+# Directories, Instructions
+SVMTVDir, S,  /DBMP/AudioDB/SIS_Data/Test/AutoSegmentations/,
+
+
+# End args #
